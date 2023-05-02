@@ -1,0 +1,26 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    // 从其他项目里继承来的内容，控制了plugins的打开关闭
+    "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended",
+        "prettier",
+        "plugin:prettier/recommended"
+    ],
+    "overrides": [],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaVersion": "latest",
+        "sourceType": "module"
+    },
+    "plugins": ["@typescript-eslint"],
+    "rules": {
+        "prettier/prettier": "error",
+        "no-case-declarations": "off",
+        "no-constant-condition": "off",
+        "@typescript-eslint/ban-ts-comment": "off"
+    }
+}
