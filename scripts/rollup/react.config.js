@@ -1,0 +1,60 @@
+import {
+	getPackageJSON,
+	resolvePkgDistPath,
+	resolvePkgSourcePath,
+	getBaseRollupPlugins
+} from './utils';
+// 打包结果需要packageJson
+import generatePackageJson from 'rollup-plugin-generate-package-json';
+
+const { name, module } = getPackageJSON('react');
+// react包的路径
+const pkgPath = resolvePkgSourcePath(name);
+// react产物路径
+const pkgDistPath = resolvePkgDistPath(name);
+
+export default [
+	// react包
+	{
+		input: `${pkgPath}/${module}`,
+		output: {
+			file: `${pkgDistPath}/index.js`,
+			name: 'index.js',
+			format: 'umd' // 兼容es module和cjs
+		},
+		plugins: [
+			...getBaseRollupPlugins(),
+			generatePackageJson({
+				inputFolder: pkgPath,
+				outputFolder: pkgDistPath,
+				// 不希望直接复制一份源码的packages.json
+				// 因为那里面依赖了shared（不希望打包后文件带有shared）
+				baseContents: ({ name, description, version }) => ({
+					name,
+					description,
+					version,
+					main: 'index.js'
+				})
+			})
+		]
+	},
+	// jsx runtime
+	{
+		input: `${pkgPath}/src/jsx.ts`,
+		output: [
+			// jsx-runtime
+			{
+				file: `${pkgDistPath}/jsx-runtime.js`,
+				name: 'jsx-runtime.js',
+				formate: 'umd'
+			},
+			// jsx-dev-runtime
+			{
+				file: `${pkgDistPath}/jsx-dev-runtime.js`,
+				name: 'jsx-dev-runtime.js',
+				formate: 'umd'
+			}
+		],
+		plugins: getBaseRollupPlugins()
+	}
+];
