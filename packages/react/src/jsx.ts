@@ -15,12 +15,13 @@ const ReactElement = (
 	props: Props
 ): ReactElementType => {
 	// 定义一个react element
+	// 无法表达
 	const element = {
 		$$typeof: REACT_ELEMENT_TYPE, // 内部使用字段
-		type,
-		key,
-		ref,
-		props,
+		type, // 元素类型
+		key, // 索引
+		ref, // 引用
+		props, // 属性
 		__mark: 'leo' // 用于区分真实的react
 	};
 	return element;

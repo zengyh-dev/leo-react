@@ -4,6 +4,7 @@ import fs from 'fs';
 
 import ts from 'rollup-plugin-typescript2';
 import cjs from '@rollup/plugin-commonjs';
+import replace from '@rollup/plugin-replace';
 
 // __dirname是node环境下的全局变量，这里报错显示不存在
 // 需要到.eslintrc.json中给env添加"node":true选项
@@ -28,7 +29,13 @@ export const getPackageJSON = (pkgName) => {
 
 // 获取公用plugins
 // 解析commonjs 和 ts转js
-export function getBaseRollupPlugins({ typescript = {} } = {}) {
+
+export function getBaseRollupPlugins({
+	alias = {
+		__DEV__: true
+	},
+	typescript = {}
+} = {}) {
 	// typesciprt的plugin需要配置项
-	return [cjs(), ts(typescript)];
+	return [replace(alias), cjs(), ts(typescript)];
 }

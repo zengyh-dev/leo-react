@@ -16,6 +16,11 @@
 		"noUnusedParameters": true,
 		"noImplicitReturns": false,
 		"skipLibCheck": true,
-		"baseUrl": "./packages" // 项目基础入口
+		"baseUrl": "./packages", // 项目基础入口
+		"paths": {
+			// 这里需要配置一下路径，因为hostConfig不能被限制在react-creconciler中
+			// 实际上不同宿主环境，都要实现各自的hostConfig
+			"hostConfig": ["./react-reconciler/src/hostConfig.ts"]
+		}
 	}
 }
