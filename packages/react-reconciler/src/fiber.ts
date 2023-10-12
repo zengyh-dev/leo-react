@@ -28,12 +28,12 @@ export class FiberNode {
 	// key: 对应reactElement的key
 	constructor(tag: WorkTag, pendingProps: Props, key: Key) {
 		// 实例的属性
-		this.tag = tag; // 节点类型（仅仅是数字编号）
+		this.tag = tag; // fiber node的节点类型（仅仅是数字编号）
 		this.key = key;
 		// HostComponent <div> div DOM
-		this.stateNode = null; // 保存了dom
+		this.stateNode = null; // 实际dom节点
 		// FunctionComponent () => (<div></div>)
-		this.type = null; // 节点实际类型
+		this.type = null; // function本身
 
 		// 节点关系,构成树状结构
 		this.return = null; // 指向父节点，因为作为工作单位，深度遍历的顺序当前工作完就指向父节点

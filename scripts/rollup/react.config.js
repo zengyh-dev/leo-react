@@ -13,13 +13,14 @@ const pkgPath = resolvePkgSourcePath(name);
 // react产物路径
 const pkgDistPath = resolvePkgDistPath(name);
 
+// 数组中的每一项都是一个配置
 export default [
 	// react包
 	{
 		input: `${pkgPath}/${module}`,
 		output: {
 			file: `${pkgDistPath}/index.js`,
-			name: 'index.js',
+			name: 'react',
 			format: 'umd' // 兼容es module和cjs
 		},
 		plugins: [
@@ -33,7 +34,7 @@ export default [
 					name,
 					description,
 					version,
-					main: 'index.js'
+					main: 'index.js' // umd格式支持cjs，可以用main字段
 				})
 			})
 		]
@@ -41,17 +42,18 @@ export default [
 	// jsx runtime
 	{
 		input: `${pkgPath}/src/jsx.ts`,
+		// 输出两个，就用数组
 		output: [
 			// jsx-runtime
 			{
 				file: `${pkgDistPath}/jsx-runtime.js`,
-				name: 'jsx-runtime.js',
+				name: 'jsx-runtime',
 				formate: 'umd'
 			},
 			// jsx-dev-runtime
 			{
 				file: `${pkgDistPath}/jsx-dev-runtime.js`,
-				name: 'jsx-dev-runtime.js',
+				name: 'jsx-dev-runtime',
 				formate: 'umd'
 			}
 		],
