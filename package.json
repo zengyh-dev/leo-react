@@ -31,5 +31,8 @@
     },
     "dependencies": {
         "@rollup/plugin-replace": "^5.0.2"
+    },
+    "volta": {
+        "node": "18.18.1"
     }
 }

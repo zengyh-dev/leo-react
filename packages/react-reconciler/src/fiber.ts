@@ -35,7 +35,7 @@ export class FiberNode {
 		// FunctionComponent () => (<div></div>)
 		this.type = null; // function本身
 
-		// 节点关系,构成树状结构
+		// 节点关系, 构成树状结构
 		this.return = null; // 指向父节点，因为作为工作单位，深度遍历的顺序当前工作完就指向父节点
 		this.sibling = null; // 兄弟节点
 		this.child = null; // 子节点
